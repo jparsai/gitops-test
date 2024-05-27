@@ -22,7 +22,7 @@ func main() {
 		fmt.Println("Failed to create client object", err)
 	}
 
-	if os.Getenv("CREATE_CLUSTER_ROLE") {
+	if os.Getenv("CREATE_CLUSTER_ROLE") == "true" {
 
 		fmt.Println("Creating ClusterRole.")
 		clusterRole := &rbacv1.ClusterRole{
@@ -37,6 +37,31 @@ func main() {
 		}
 
 		fmt.Println("Succesfully created the ClusterRole: ", clusterRole.Name)
+
+		clusterRoleBinding := &rbacv1.ClusterRoleBinding{
+			ObjectMeta: metav1.ObjectMeta{
+				Name: "test-gitops-cluster-role-binding",
+			},
+			Subjects: []rbacv1.Subject{
+				{
+					Kind:      rbacv1.ServiceAccountKind,
+					Name:      "argocd-argocd-application-controller",
+					Namespace: os.Getenv("POD_NAMESPACE"),
+				},
+			},
+			RoleRef: rbacv1.RoleRef{
+				APIGroup: rbacv1.GroupName,
+				Kind:     "ClusterRole",
+				Name:     "test-gitops-cluster-role",
+			},
+		}
+
+		if err = k8sClient.Create(ctx, clusterRoleBinding); err != nil {
+			fmt.Println("Failed to create ClusterRoleBinding", err)
+			return
+		}
+
+		fmt.Println("Succesfully created the ClusterRoleBinding: ", clusterRoleBinding.Name)
 
 	} else {
 
