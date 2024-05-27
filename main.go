@@ -22,7 +22,7 @@ func main() {
 		fmt.Println("Failed to create client object", err)
 	}
 
-	if os.Getenv("CREATE_CLUSTER_ROLE") == "true" {
+	if os.Getenv("CREATE_CLUSTER_ROLE") {
 
 		fmt.Println("Creating ClusterRole.")
 		clusterRole := &rbacv1.ClusterRole{

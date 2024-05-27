@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-test
+  labels:
+    app: gitops-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: gitops-test
+  template:
+    metadata:
+      labels:
+        deployment: gitops-test
+    spec:
+      containers:
+        - name: gitops-test
+          image: 'quay.io/jparsai/gitops-test:v3'
+          env:
+          - name: CREATE_CLUSTER_ROLE
+            value: "true"
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+      serviceAccountName: "argocd-argocd-application-controller"
