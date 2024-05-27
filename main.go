@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"time"
 
 	rbacv1 "k8s.io/api/rbac/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -21,7 +22,7 @@ func main() {
 		fmt.Println("Failed to create client object", err)
 	}
 
-	if os.Getenv("CLUSTER_ROLE") != "" {
+	if os.Getenv("CREATE_CLUSTER_ROLE") == "true" {
 
 		fmt.Println("Creating ClusterRole.")
 		clusterRole := &rbacv1.ClusterRole{
@@ -35,7 +36,7 @@ func main() {
 			return
 		}
 
-		fmt.Println("Succesfully created the ClusterRole : ", clusterRole.Name)
+		fmt.Println("Succesfully created the ClusterRole: ", clusterRole.Name)
 
 	} else {
 
@@ -53,8 +54,10 @@ func main() {
 			return
 		}
 
-		fmt.Println("Succesfully created the Role: %s in namespace: %s", role.Name, role.Namespace)
+		fmt.Println("Succesfully created the Role: ", role.Name, " in namespace: ", role.Namespace)
 	}
+
+	time.Sleep(10 * time.Minute)
 }
 
 func GetClient() (client.Client, error) {
