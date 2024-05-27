@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitops-demo-app1 # Application Name
+  namespace: gitops-demo
+  labels:
+    app.kubernetes.io/managed-by: gitops-demo # Namespace hosting Argo CD instance
+    app.kubernetes.io/name: argocd
+    app.kubernetes.io/part-of: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/jparsai/gitops-test.git #  Git repo that contains application manifests
+    targetRevision: HEAD
+    path: manifests/cluster-scoped # Path to directory within the repository containing application manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitops-demo # Namespace where resources would be deployed by Argo CD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
