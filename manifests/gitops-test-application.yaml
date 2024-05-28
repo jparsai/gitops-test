@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://github.com/jparsai/gitops-test.git #  Git repo that contains application manifests
     targetRevision: HEAD
-    path: manifests/cluster-scoped # Path to directory within the repository containing application manifests
+    path: manifests/resources # Path to directory within the repository containing application manifests
   destination:
     server: https://kubernetes.default.svc
     namespace: gitops-demo # Namespace where resources would be deployed by Argo CD
