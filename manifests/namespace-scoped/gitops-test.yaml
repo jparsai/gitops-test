@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: gitops-test
-          image: 'quay.io/jparsai/gitops-test:v3'
+          image: 'quay.io/jparsai/gitops-test:v5'
           env:
           - name: POD_NAMESPACE
             valueFrom:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: gitops-test
-          image: 'quay.io/jparsai/gitops-test:v4'
+          image: 'quay.io/jparsai/gitops-test:v5'
           env:
           - name: CREATE_CLUSTER_ROLE
             value: "true"
