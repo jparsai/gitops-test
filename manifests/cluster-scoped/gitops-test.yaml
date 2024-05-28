@@ -24,4 +24,4 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
-      serviceAccountName: "argocd-application-controller"
+      serviceAccountName: "argocd-argocd-application-controller"
