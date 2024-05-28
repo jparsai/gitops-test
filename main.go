@@ -33,6 +33,7 @@ func main() {
 
 		if err = k8sClient.Create(ctx, clusterRole); err != nil {
 			fmt.Println("Failed to create ClusterRole", err)
+			time.Sleep(5 * time.Minute)
 			return
 		}
 
@@ -58,6 +59,7 @@ func main() {
 
 		if err = k8sClient.Create(ctx, clusterRoleBinding); err != nil {
 			fmt.Println("Failed to create ClusterRoleBinding", err)
+			time.Sleep(5 * time.Minute)
 			return
 		}
 
@@ -76,13 +78,14 @@ func main() {
 
 		if err = k8sClient.Create(ctx, role); err != nil {
 			fmt.Println("Failed to create Role", err)
+			time.Sleep(5 * time.Minute)
 			return
 		}
 
 		fmt.Println("Succesfully created the Role: ", role.Name, " in namespace: ", role.Namespace)
 	}
 
-	time.Sleep(10 * time.Minute)
+	time.Sleep(5 * time.Minute)
 }
 
 func GetClient() (client.Client, error) {
