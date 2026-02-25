@@ -4,5 +4,5 @@ metadata:
   name: test-gitops-cr
   metadata:
   labels:
-    app.kubernetes.io/name: test-gitops-01
+    app.kubernetes.io/name: test-gitops-02
 rules: []
