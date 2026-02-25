@@ -1,5 +1,8 @@
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: test-gitops-1
+  name: test-gitops-cr
+  metadata:
+  labels:
+    app.kubernetes.io/name: test-gitops-01
 rules: []
