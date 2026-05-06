@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: test-gitops-cronjob
+  labels:
+    app.kubernetes.io/name: gitops-test
+spec:
+  schedule: "0 */6 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: test-gitops-sa
+          restartPolicy: Never
+          containers:
+            - name: hello
+              image: registry.access.redhat.com/ubi9-minimal:latest
+              command:
+                - /bin/sh
+                - -c
+                - echo "GitOps test cronjob executed at $(date)"

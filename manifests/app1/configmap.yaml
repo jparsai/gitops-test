@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-gitops-config
+  labels:
+    app.kubernetes.io/name: gitops-test
+data:
+  app.properties: |
+    environment=test
+    log.level=info
+  message: "Hello from GitOps test app"
