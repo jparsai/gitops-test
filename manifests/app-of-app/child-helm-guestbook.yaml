@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: child-helm-guestbook
+  namespace: argocd-autonomous
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/argoproj/argocd-example-apps
+    targetRevision: HEAD
+    path: helm-guestbook
+  destination:
+    name: in-cluster
+    namespace: helm-guestbook
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
