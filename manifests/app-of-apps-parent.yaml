@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: parent-app
+  namespace: argocd-autonomous
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/jparsai/gitops-test
+    targetRevision: HEAD
+    path: manifests/app-of-app
+  destination:
+    name: in-cluster
+    namespace: argocd-autonomous
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
